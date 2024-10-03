@@ -40,8 +40,9 @@ $hotels = [
 
 ];
 
-?>
 
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -55,9 +56,19 @@ $hotels = [
 </head>
 
 <body>
-
-    <main class="container my-5">
+    <main class="container mb-5">
         <h1 class="text-center fw-bold">HOTEL</h1>
+
+        <!--Form-->
+        <form method="GET">
+            <label for="park">Parcheggio:</label>
+            <select class="my-5 w-25" name="park" id="park">
+                <option value="1">Disponibile</option>
+                <option value="2">NON Disponibile</option>
+            </select>
+        </form>
+
+        <!--Tabella-->
         <table class="table table-dark table-striped table-hover">
             <?php foreach ($hotels as $singleHotel) { ?>
             <thead>
