@@ -40,7 +40,7 @@ $hotels = [
 
 ];
 
-
+$park = $_GET['park'];
 
 ?>
 
@@ -59,18 +59,41 @@ $hotels = [
     <main class="container mb-5">
         <h1 class="text-center fw-bold">HOTEL</h1>
 
-        <!--Form-->
+        <!--Forms-->
         <form method="GET">
+
+            <!--Parcheggio-->
             <label for="park">Parcheggio:</label>
             <select class="my-5 w-25" name="park" id="park">
+                <option value="" disabled selected>Filtra in base al parcheggio</option>
                 <option value="1">Disponibile</option>
                 <option value="2">NON Disponibile</option>
             </select>
+
+            <!--Voto-->
+            <label for="vote">Voto:</label>
+            <select class="my-5 w-25" name="vote" id="vote">
+                <option value="" disabled selected>Filtra in base al voto</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="1">3</option>
+                <option value="1">4</option>
+                <option value="1">5</option>
+            </select>
+
+            <br>
+
+            <!--Bottoni-->
+            <div class="buttons mb-5">
+                <button type="submit" class="btn btn-primary mx-2">Filtra</button>
+                <button type="reset" class="btn btn-warning">Annulla</button>
+            </div>
         </form>
 
         <!--Tabella-->
         <table class="table table-dark table-striped table-hover">
             <?php foreach ($hotels as $singleHotel) { ?>
+
             <thead>
                 <tr>
                     <th scope="col"></th>
@@ -99,6 +122,8 @@ $hotels = [
             </tbody>
             <?php } ?>
         </table>
+
+        <?php echo $park; ?>
     </main>
 
 </body>
