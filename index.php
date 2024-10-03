@@ -64,6 +64,13 @@ $hotels = [
             <li class="list-group-item">
                 <h3> <?= $singleHotel['name']; ?> </h3>
                 <p> <?= $singleHotel['description']; ?> </p>
+                <p> <?php
+                        if ($singleHotel['parking']) {
+                            echo 'available';
+                        } else {
+                            echo 'not available';
+                        }
+                        ?> </p>
                 <h5> <?= $singleHotel['vote']; ?> </h5>
                 <h5> <?= $singleHotel['distance_to_center']; ?> </h5>
             </li>
