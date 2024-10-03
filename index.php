@@ -57,25 +57,37 @@ $hotels = [
 <body>
 
     <main class="container my-5">
-        <h1 class="text-center">HOTEL</h1>
-
-        <ul class="list-group">
+        <h1 class="text-center fw-bold">HOTEL</h1>
+        <table class="table table-dark table-striped table-hover">
             <?php foreach ($hotels as $singleHotel) { ?>
-            <li class="list-group-item">
-                <h3> <?= $singleHotel['name']; ?> </h3>
-                <p> <?= $singleHotel['description']; ?> </p>
-                <p> <?php
-                        if ($singleHotel['parking']) {
-                            echo 'available';
-                        } else {
-                            echo 'not available';
-                        }
-                        ?> </p>
-                <h5> <?= $singleHotel['vote']; ?> </h5>
-                <h5> <?= $singleHotel['distance_to_center']; ?> </h5>
-            </li>
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">NOME</th>
+                    <th scope="col">DESCRIZIONE</th>
+                    <th scope="col">PARCHEGGIO</th>
+                    <th scope="col">VOTO</th>
+                    <th scope="col">DISTANZA DAL CENTRO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row"></th>
+                    <td><?= $singleHotel['name']; ?></td>
+                    <td><?= $singleHotel['description']; ?></td>
+                    <td><?php
+                            if ($singleHotel['parking']) {
+                                echo 'Disponibile';
+                            } else {
+                                echo 'NON Disponibile';
+                            }
+                            ?> </td>
+                    <td><?= $singleHotel['vote']; ?></td>
+                    <td><?= $singleHotel['distance_to_center']; ?></td>
+                </tr>
+            </tbody>
             <?php } ?>
-        </ul>
+        </table>
     </main>
 
 </body>
