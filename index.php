@@ -40,7 +40,37 @@ $hotels = [
 
 ];
 
-$park = $_GET['park'];
+
+
+
+
+if (isset($_GET['park']) && $_GET['park'] === 'on') {  // Controllo se è settato il park e se è ON tramite un if e la checkbox
+
+    $filteredHotels = []; // Solo gli hotel col park
+
+    foreach ($hotels as $singleHotel) { // Per ogni hotel ..
+        if ($singleHotel['parking'] === true) { // Verifico che il singolo hotel abbia il park disponibile
+            $filteredHotels[] = $singleHotel; // Inserisco l'hotel nell'array nuovo    
+        }
+    }                                            // Poi devo iterare su $filteredHotels !!!
+} else {
+    $filteredHotels = $hotels;
+}
+
+// VOTE
+
+if (isset($_GET['vote']) && ($_GET['vote']) >= 1 && ($_GET['vote']) <= 5) {
+
+    $filteredVote = [];
+
+    foreach ($filteredHotels as $singleHotel) {
+        if ($singleHotel['vote'] >= $_GET['vote']) {
+            $filteredVote[] = $singleHotel;
+        }
+    }
+
+    $filteredHotels = $filteredVote;
+}
 
 ?>
 
@@ -63,25 +93,16 @@ $park = $_GET['park'];
         <form method="GET">
 
             <!--Parcheggio-->
-            <label for="park">Parcheggio:</label>
-            <select class="my-5 w-25" name="park" id="park">
-                <option value="" disabled selected>Filtra in base al parcheggio</option>
-                <option value="1">Disponibile</option>
-                <option value="2">NON Disponibile</option>
-            </select>
+            <div class="form-check mb-3">
+                <label class="form-check-label" for="park">Parcheggio:</label>
+                <input class="form-check-input" type="checkbox" id="park" name="park">
+            </div>
 
             <!--Voto-->
-            <label for="vote">Voto:</label>
-            <select class="my-5 w-25" name="vote" id="vote">
-                <option value="" disabled selected>Filtra in base al voto</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="1">3</option>
-                <option value="1">4</option>
-                <option value="1">5</option>
-            </select>
-
-            <br>
+            <div class="input-group w-25 mb-3">
+                <label class="form-check-label me-3" for="vote">Voto:</label>
+                <input class="form-control" type="number" id="vote" name="vote" min="1" max="5">
+            </div>
 
             <!--Bottoni-->
             <div class="buttons mb-5">
@@ -91,8 +112,11 @@ $park = $_GET['park'];
         </form>
 
         <!--Tabella-->
+
+
+
         <table class="table table-dark table-striped table-hover">
-            <?php foreach ($hotels as $singleHotel) { ?>
+            <?php foreach ($filteredHotels as $singleHotel) { ?>
 
             <thead>
                 <tr>
@@ -109,13 +133,8 @@ $park = $_GET['park'];
                     <th scope="row"></th>
                     <td><?= $singleHotel['name']; ?></td>
                     <td><?= $singleHotel['description']; ?></td>
-                    <td><?php
-                            if ($singleHotel['parking']) {
-                                echo 'Disponibile';
-                            } else {
-                                echo 'NON Disponibile';
-                            }
-                            ?> </td>
+                    <td><?= ($singleHotel['parking']) ? 'Disponibile' : 'NON Disponibile'; ?> </td>
+                    <!--Ternario, versione breve dell'if-->
                     <td><?= $singleHotel['vote']; ?></td>
                     <td><?= $singleHotel['distance_to_center']; ?></td>
                 </tr>
@@ -123,7 +142,6 @@ $park = $_GET['park'];
             <?php } ?>
         </table>
 
-        <?php echo $park; ?>
     </main>
 
 </body>
